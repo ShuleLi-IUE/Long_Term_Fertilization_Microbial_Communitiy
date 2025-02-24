@@ -31,7 +31,7 @@ for (ferti_name in ferti_names) {
     ARG_pcoa_result_g <- ARG_pcoa_result %>% mutate(Group = factor(get(group_name)))
     
     # Perform PERMANOVA
-    otu.adonis = adonis2(df_dist ~ Group, data = ARG_pcoa_result_g, distance = "bray")
+    otu.adonis = adonis2(df_dist ~ Group, data = ARG_pcoa_result_g, distance = "bray", permutations = 9999)
     
     p <- ggplot(ARG_pcoa_result_g, aes(x = PCoA1, y = PCoA2, color = get(group_name))) +
       geom_point(size = 4) +
@@ -88,7 +88,7 @@ test <- data.frame(PCoA1 = res1$mcletters$Letters, PCoA2 = res2$mcletters$Letter
   left_join(lsd2$groups %>% dplyr::select(PCoA_BH2 = groups) %>% mutate(Group = rownames(.)), by = "Group") %>% 
   left_join(lsd1$groups %>% dplyr::select(PCoA_BH1 = groups) %>% mutate(Group = rownames(.)), by = "Group")
 
-otu.adonis = adonis2(df_dist ~ Group, data = ARG_pcoa_result_g, distance = "bray")
+otu.adonis = adonis2(df_dist ~ Group, data = ARG_pcoa_result_g, distance = "bray", permutations = 9999)
 
 cbbPalette <- c("#B2182B", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#CC6666", "#9999CC", "#66CC99", "#99999", "#ADD1E5")
 
